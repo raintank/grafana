@@ -141,6 +141,15 @@ func Register(r *macaron.Macaron) {
 			r.Get("/discover", reqEditorRole, bind(m.EndpointDiscoveryCommand{}), DiscoverEndpoint)
 		})
 
+		// alerts
+		r.Group("/alerts", func() {
+			r.Combo("/").Get(bind(m.GetAlertsQuery{}), GetAlerts).
+				Put(reqEditorRole, bind(m.AddAlertCommand{}), AddAlert)
+			//Post(reqEditorRole, bind(m.UpdateAlertommand{}), UpdateAlert) // TODO
+			r.Get("/:id", GetAlertById)
+			r.Delete("/:id", reqEditorRole, DeleteAlert)
+		})
+
 		r.Get("/monitor_types", GetMonitorTypes)
 
 		//Events
