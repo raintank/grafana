@@ -2,13 +2,14 @@ package sqlstore
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/grafana/grafana/pkg/bus"
 	"github.com/grafana/grafana/pkg/events"
 	"github.com/grafana/grafana/pkg/log"
 	m "github.com/grafana/grafana/pkg/models"
-	"strconv"
-	"strings"
-	"time"
 )
 
 func init() {
@@ -34,6 +35,7 @@ type MonitorWithCollectorDTO struct {
 	TagCollectors   string
 	State           m.CheckEvalResult
 	StateChange     time.Time
+	StateCheck      time.Time
 	Settings        []*m.MonitorSettingDTO
 	HealthSettings  *m.MonitorHealthSettingDTO //map[string]int //note: wish we could use m.MonitorHealthSettingDTO directly, but xorm doesn't unmarshal to structs?
 	Frequency       int64
@@ -132,6 +134,7 @@ WHERE monitor.id=?
 		Collectors:      mergedCollectors,
 		State:           result.State,
 		StateChange:     result.StateChange,
+		StateCheck:      result.StateCheck,
 		Settings:        result.Settings,
 		HealthSettings:  result.HealthSettings,
 		Frequency:       result.Frequency,
@@ -298,6 +301,7 @@ FROM monitor
 			Collectors:      mergedCollectors,
 			State:           row.State,
 			StateChange:     row.StateChange,
+			StateCheck:      row.StateCheck,
 			Settings:        row.Settings,
 			HealthSettings:  row.HealthSettings,
 			Frequency:       row.Frequency,
@@ -513,6 +517,7 @@ func addMonitorTransaction(cmd *m.AddMonitorCommand, sess *session) error {
 		Enabled:        cmd.Enabled,
 		State:          -1,
 		StateChange:    time.Now(),
+		StateCheck:     time.Now(),
 	}
 	if _, err := sess.Insert(mon); err != nil {
 		return err
@@ -580,6 +585,7 @@ func addMonitorTransaction(cmd *m.AddMonitorCommand, sess *session) error {
 		Enabled:        mon.Enabled,
 		State:          mon.State,
 		StateChange:    mon.StateChange,
+		StateCheck:     mon.StateCheck,
 		Offset:         mon.Offset,
 		Updated:        mon.Updated,
 	}
@@ -707,6 +713,7 @@ func UpdateMonitor(cmd *m.UpdateMonitorCommand) error {
 			Enabled:        cmd.Enabled,
 			State:          lastState.State,
 			StateChange:    lastState.StateChange,
+			StateCheck:     lastState.StateCheck,
 			Frequency:      cmd.Frequency,
 		}
 
