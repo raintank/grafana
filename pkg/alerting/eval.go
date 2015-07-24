@@ -2,7 +2,6 @@ package alerting
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"bosun.org/cmd/bosun/cache"
@@ -76,12 +75,14 @@ func (ce *GraphiteCheckEvaluator) Eval(ts time.Time) (m.CheckEvalResult, error) 
 	eval := func(e *expr.Expr, code m.CheckEvalResult) (m.CheckEvalResult, error) {
 		results, _, err := e.Execute(nil, ce.Context, nil, cacheObj, nil, ts, 0, true, nil, nil, nil)
 		if err != nil {
-			// graphite errors are probably transient and non-fatal.
-			if strings.Contains(err.Error(), "graphite") {
-				return m.EvalResultUnknown, fmt.Errorf("non-fatal: %q", err)
-			}
-			// others are probably fatal, i.e. not transient. (expression mixes incompatible types, incorrect function call,...)
-			return m.EvalResultUnknown, fmt.Errorf("fatal: %q", err)
+			// for now, treat all errors as non-fatal.  we should monitor all errors and either:
+			// * add exceptions here once we realize they are in effect fatal.
+			// * fix our code to prevent the non-fatal errors ;)
+			// examples of what to expect here.
+			// graphite request errors
+			// bosun NewRequest failed, Get failed, Json decode failed
+			// bosun errors for expression mixes incompatible types, incorrect function call,...
+			return m.EvalResultUnknown, fmt.Errorf("non-fatal: %q", err)
 		}
 		for _, res := range results.Results {
 			switch i := res.Value.Value().(type) {
@@ -94,7 +95,9 @@ func (ce *GraphiteCheckEvaluator) Eval(ts time.Time) (m.CheckEvalResult, error) 
 					return code, nil
 				}
 			default:
-				return m.EvalResultUnknown, fmt.Errorf("fatal: expr.Execute for %q returned unknown result with type %T and value %v", e, res, res)
+				// actually a pretty fatal error, but if you monitor these errors happening and fix the code when they do
+				// you don't have to reschedule any jobs, your bugfix will be picked up :)
+				return m.EvalResultUnknown, fmt.Errorf("non-fatal: expr.Execute for %q returned unknown result with type %T and value %v", e, res, res)
 			}
 		}
 		return m.EvalResultOK, nil

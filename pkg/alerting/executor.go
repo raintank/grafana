@@ -35,6 +35,9 @@ type GraphiteContext struct {
 func (gc *GraphiteContext) Query(r *graphite.Request) (graphite.Response, error) {
 	pre := time.Now()
 	res, err := gc.hh.Query(r)
+	if err != nil {
+		return res, err
+	}
 	// currently I believe bosun doesn't do concurrent queries, but we should just be safe.
 	gc.lock.Lock()
 	defer gc.lock.Unlock()
