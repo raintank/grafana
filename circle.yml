@@ -27,6 +27,6 @@ test:
      - cd rt-pkg && /bin/bash packaging.sh 
 deployment:
   production:
-    branch: master
+    branch: not_nsq
     commands:
       - rt-pkg/deploy.sh
