@@ -6,11 +6,11 @@
             </div>
             <div class="rt-box-row-info">
               <a href="#">
-                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="monitors['http'].enabled"></i>
-                <span class="freqMsg" ng-show="monitors['http'].enabled" > Every {{monitors['http'].frequency}}s from {{collectorCount(monitors['http'])}} Collectors |</span>
-                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="!monitors['http'].enabled"></i>
-                <span class="freqMsg disabled" ng-show="!monitors['http'].enabled" > Not enabled |</span>
-                <span class="freqMsg" ng-show="!monitors['http'].enabled && discovered" > Not Discovered |</span>
+                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="monitors_status['http'].enabled"></i>
+                <span class="freqMsg" ng-show="monitors_status['http'].enabled" > Every {{monitors['http'].frequency}}s from {{collectorCount(monitors['http'])}} Collectors |</span>
+                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="!monitors_status['http'].enabled"></i>
+                <span class="freqMsg disabled" ng-show="!monitors_status['http'].enabled" > Not enabled |</span>
+                <span class="freqMsg" ng-show="!monitors_status['http'].enabled && discovered" > Not Discovered |</span>
                 <!-- Alerting 
                 <i class="icon icon-rt-alert" style="font-size:17px;"ng-show="monitors['http'].enabled && monitors['alert'].enabled"></i>
                 <span class="freqMsg" ng-show="monitors['http'].enabled && monitors['alert'].enabled" > Alerting enabled |</span<!

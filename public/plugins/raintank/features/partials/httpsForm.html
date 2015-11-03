@@ -7,11 +7,11 @@
             </div>
             <div class="rt-box-row-info">
               <a href="#">
-                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="monitors['https'].enabled"></i>
-                <span class="freqMsg" ng-show="monitors['https'].enabled" > Every {{monitors['https'].frequency}}s from {{collectorCount(monitors['https'])}} Collectors |</span>
-                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="!monitors['https'].enabled"></i>
-                <span class="freqMsg disabled" ng-show="!monitors['https'].enabled" > Not enabled |</span>
-                <span class="freqMsg" ng-show="!monitors['https'].enabled && discovered" > Not Discovered |</span>
+                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="monitors_status['https'].enabled"></i>
+                <span class="freqMsg" ng-show="monitors_status['https'].enabled" > Every {{monitors['https'].frequency}}s from {{collectorCount(monitors['https'])}} Collectors |</span>
+                <i class="icon icon-rt-monitoring-tiny" style="font-size:17px;"ng-show="!monitors_status['https'].enabled"></i>
+                <span class="freqMsg disabled" ng-show="!monitors_status['https'].enabled" > Not enabled |</span>
+                <span class="freqMsg" ng-show="!monitors_status['https'].enabled && discovered" > Not Discovered |</span>
                 <span class="freqMsg" style="color: #13b2d4"> Configure</span>
                 <span><i class="fa fa-caret-down" ng-show="showHTTPS"></i></span>
                 <span><i class="fa fa-caret-right rt-box-accordian-control" ng-hide="showHTTPS"></i></span>

@@ -28,6 +28,7 @@ function (angular, _) {
       $scope.newEndpointName = "";
       $scope.endpoints = [];
       $scope.monitors = {};
+      $scope.monitors_status = {};
       $scope.monitor_types = {};
       $scope.monitor_types_by_name = {};
       $scope.allCollectors = [];
@@ -241,6 +242,13 @@ function (angular, _) {
       });
     };
 
+    var setMonitorsStatus = function() {
+      _.forEach($scope.monitors, function(monitor) {
+        var type = $scope.monitor_types[monitor.monitor_type_id].name.toLowerCase();
+        $scope.monitors_status[type] = {enabled:  monitor.enabled};
+      });
+    };
+
     $scope.cancel = function() {
       $scope.reset();
       $scope.ignoreChanges = true;
@@ -273,6 +281,7 @@ function (angular, _) {
               monitorLastState[monitor.id] = _.cloneDeep(monitor);
             });
             $scope.pageReady = true;
+            setMonitorsStatus();
           });
         }
       });
@@ -302,6 +311,7 @@ function (angular, _) {
     };
 
     $scope.save = function(location) {
+
       var promises = [];
       _.forEach($scope.monitors, function(monitor) {
         monitor.endpoint_id = $scope.endpoint.id;
@@ -357,6 +367,7 @@ function (angular, _) {
 
         monitorLastState[monitor.id] = _.cloneDeep(monitor);
         alertSrv.set(message, '', 'success', 3000);
+        setMonitorsStatus();
       });
     };
 
