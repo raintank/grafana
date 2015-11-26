@@ -1,10 +1,10 @@
 package middleware
 
 import (
+	"encoding/json"
+	"github.com/Unknwon/macaron"
 	"strconv"
 	"strings"
-
-	"github.com/Unknwon/macaron"
 
 	"github.com/grafana/grafana/pkg/bus"
 	"github.com/grafana/grafana/pkg/components/apikeygen"
@@ -39,7 +39,8 @@ func GetContextHandler() macaron.Handler {
 		// then init session and look for userId in session
 		// then look for api key in session (special case for render calls via api)
 		// then test if anonymous access is enabled
-		if initContextWithApiKey(ctx) ||
+		if initContextWithPluginHeader(ctx) ||
+			initContextWithApiKey(ctx) ||
 			initContextWithBasicAuth(ctx) ||
 			initContextWithAuthProxy(ctx) ||
 			initContextWithUserSessionCookie(ctx) ||
@@ -49,6 +50,22 @@ func GetContextHandler() macaron.Handler {
 
 		c.Map(ctx)
 	}
+}
+
+func initContextWithPluginHeader(ctx *Context) bool {
+	proxyHeaderValue := ctx.Req.Header.Get("Grafana-Context")
+	if len(proxyHeaderValue) == 0 {
+		return false
+	}
+	ctx.IsSignedIn = true
+	remoteContext := &m.SignedInUser{}
+	err := json.Unmarshal([]byte(proxyHeaderValue), remoteContext)
+	if err != nil {
+		log.Error(3, "failed to unmarshal grafana-context", err)
+		return false
+	}
+	ctx.SignedInUser = remoteContext
+	return true
 }
 
 func initContextWithAnonymousUser(ctx *Context) bool {
