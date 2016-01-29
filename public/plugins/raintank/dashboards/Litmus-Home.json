@@ -42,7 +42,7 @@
             "span": 7.5,
             "height": "415px",
             "title": "",
-            "type": "raintankEndpointList"
+            "type": "raintankendpointlist"
           },
           {
             "content": "",
@@ -63,7 +63,7 @@
             "id": 1,
             "span": 4,
             "title": "",
-            "type": "raintankCallToAction"
+            "type": "raintankcalltoaction"
           },
           {
             "content": "",

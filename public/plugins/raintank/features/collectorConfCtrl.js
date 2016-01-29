@@ -1,13 +1,13 @@
 define([
   'angular',
-  'lodash'
+  'lodash',
+  'app/core/core_module'
 ],
-function (angular, _) {
+function (angular, _, coreModule) {
   'use strict';
 
-  var module = angular.module('grafana.controllers');
-
-  module.controller('CollectorConfCtrl', function($scope, $q, $location, $timeout, $routeParams, $http, backendSrv, contextSrv) {
+  coreModule.default.controller('CollectorConfCtrl', 
+    function($scope, $q, $location, $timeout, $routeParams, $http, backendSrv, contextSrv) {
 
     var defaults = {
       name: '',

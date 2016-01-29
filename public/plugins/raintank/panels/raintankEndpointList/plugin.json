@@ -1,0 +1,6 @@
+{
+  "type": "panel",
+  "name": "Raintank Endpoint List",
+  "id": "raintankendpointlist",
+  "staticRoot": "./"
+}

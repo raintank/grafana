@@ -1,13 +1,12 @@
 define([
   'angular',
   'lodash',
+  'app/core/core_module'
 ],
-function (angular, _) {
+function (angular, _, coreModule) {
   'use strict';
-
-  var module = angular.module('grafana.controllers');
-
-  module.controller('EndpointConfCtrl', function(
+  
+  coreModule.default.controller('EndpointConfCtrl', function(
       $scope, $q, $modal, $location, $timeout, $anchorScroll,
       $routeParams, $http, $window, backendSrv, alertSrv) {
 

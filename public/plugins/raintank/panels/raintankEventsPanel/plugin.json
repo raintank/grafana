@@ -1,0 +1,6 @@
+{
+  "type": "panel",
+  "name": "Raintank Events",
+  "id": "raintankevents",
+  "staticRoot": "./"
+}

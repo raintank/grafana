@@ -142,10 +142,10 @@ Will return the dashboard given the dashboard slug. Slug is the url friendly ver
         "rows": [
           {
           }
-        ]
+        ],
         "schemaVersion": 6,
         "version": 0
-      },
+      }
     }
 
 ### Delete dashboard
@@ -500,6 +500,64 @@ Proxies all calls to the actual datasource.
       "name":"Main Org."
     }
 
+### Get Organisation by Id
+
+`GET /api/orgs/:orgId`
+
+**Example Request**:
+
+    GET /api/orgs/1 HTTP/1.1
+    Accept: application/json
+    Content-Type: application/json
+    Authorization: Bearer eyJrIjoiT0tTcG1pUlY2RnVKZTFVaDFsNFZXdE9ZWmNrMkZYbk
+
+**Example Response**:
+
+    HTTP/1.1 200
+    Content-Type: application/json
+
+    {
+      "id":1,
+      "name":"Main Org.",
+      "address":{
+        "address1":"",
+        "address2":"",
+        "city":"",
+        "zipCode":"",
+        "state":"",
+        "country":""
+      }
+    }
+
+### Get Organisation by Name
+
+`GET /api/orgs/name/:orgName`
+
+**Example Request**:
+
+    GET /api/orgs/name/Main%20Org%2E HTTP/1.1
+    Accept: application/json
+    Content-Type: application/json
+    Authorization: Bearer eyJrIjoiT0tTcG1pUlY2RnVKZTFVaDFsNFZXdE9ZWmNrMkZYbk
+
+**Example Response**:
+
+    HTTP/1.1 200
+    Content-Type: application/json
+
+    {
+      "id":1,
+      "name":"Main Org.",
+      "address":{
+        "address1":"",
+        "address2":"",
+        "city":"",
+        "zipCode":"",
+        "state":"",
+        "country":""
+      }
+    }
+
 ### Update current Organisation
 
 `PUT /api/org`
@@ -787,7 +845,7 @@ Update Organisation, fields *Adress 1*, *Adress 2*, *City* are not implemented y
         "id": 2,
         "name": "User",
         "login": "user",
-        "email": "user@mygraf.com"
+        "email": "user@mygraf.com",
         "isAdmin": false
       }
     ]
@@ -1046,7 +1104,7 @@ Deletes the starring of the given Dashboard for the actual user.
         "timezone":"browser",
         "title":"Home",
         "version":5
-        }
+        },
       "expires": 3600
     }
 
@@ -1091,34 +1149,33 @@ Keys:
         "canStar":false,
         "slug":"",
         "expires":"2200-13-32T25:23:23+02:00",
-        "created":"2200-13-32T28:24:23+02:00"},
-
-    {
-      "dashboard": {
-        "editable":false,
-        "hideControls":true,
-        "nav":[
-        {
-          "enable":false,
-        "type":"timepicker"
-        }
-        ],
-        "rows": [
+        "created":"2200-13-32T28:24:23+02:00"
+        },
+        "dashboard": {
+          "editable":false,
+          "hideControls":true,
+          "nav":[
           {
-
+            "enable":false,
+          "type":"timepicker"
           }
-        ],
-        "style":"dark",
-        "tags":[],
-        "templating":{
-          "list":[
-          ]
-        },
-        "time":{
-        },
-        "timezone":"browser",
-        "title":"Home",
-        "version":5
+          ],
+          "rows": [
+            {
+
+            }
+          ],
+          "style":"dark",
+          "tags":[],
+          "templating":{
+            "list":[
+            ]
+          },
+          "time":{
+          },
+          "timezone":"browser",
+          "title":"Home",
+          "version":5
         }
     }
 
@@ -1181,11 +1238,10 @@ Keys:
           "pluginType":"datasource",
           "serviceName":"Grafana",
           "type":"grafanasearch"
+          }
         }
-        }
-      }
-
-      defaultDatasource: "Grafana"
+      },
+      "defaultDatasource": "Grafana"
     }
 
 ## Login
@@ -1364,6 +1420,34 @@ Keys:
         "auto_assign_org":"true",
         "auto_assign_org_role":"Viewer"
       }
+    }
+
+### Grafana Stats
+
+`GET /api/admin/stats`
+
+**Example Request**:
+
+    GET /api/admin/stats
+    Accept: application/json
+    Content-Type: application/json
+    Authorization: Bearer eyJrIjoiT0tTcG1pUlY2RnVKZTFVaDFsNFZXdE9ZWmNrMkZYbk
+
+**Example Response**:
+
+    HTTP/1.1 200
+    Content-Type: application/json
+
+    {
+      "user_count":2,
+      "org_count":1,
+      "dashboard_count":4,
+      "db_snapshot_count":2,
+      "db_tag_count":6,
+      "data_source_count":1,
+      "playlist_count":1,
+      "starred_db_count":2,
+      "grafana_admin_count":2
     }
 
 ### Global Users

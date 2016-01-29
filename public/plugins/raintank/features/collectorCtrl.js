@@ -1,13 +1,12 @@
 define([
   'angular',
-  'lodash'
+  'lodash',
+  'app/core/core_module'
 ],
-function (angular, _) {
+function (angular, _, coreModule) {
   'use strict';
 
-  var module = angular.module('grafana.controllers');
-
-  module.controller('CollectorCtrl', function($scope, $http, $location, $filter, backendSrv) {
+  coreModule.default.controller('CollectorCtrl', function($scope, $http, $location, $filter, backendSrv) {
     $scope.pageReady = false;
     $scope.statuses = [
       {label: "Online", value: {online: true, enabled: true}, id: 2},

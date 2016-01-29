@@ -2,23 +2,12 @@ define([
   'angular',
   'app/app',
   'lodash',
-  'app/features/panel/panel_meta',
+  'app/features/panel/panel_meta'
 ],
 function (angular, app, _, PanelMeta) {
   'use strict';
 
-  var module = angular.module('grafana.panels.raintankEndpointList',  []);
-  app.useModule(module);
-
-  app.useModule(module);
-  module.directive('grafanaPanelRaintankendpointlist', function() {
-    return {
-      controller: 'raintankEndpointList',
-      templateUrl: 'plugins/raintank/panels/raintankEndpointList/module.html',
-    };
-  });
-
-  module.controller('raintankEndpointList', function($scope, $http, $location, $rootScope, $q, backendSrv, panelSrv) {
+  function endpointListPanelCtrl($scope, $http, $location, $rootScope, $q, backendSrv, panelSrv) {
     $scope.panelMeta = new PanelMeta({
       panelName: 'Raintank Endpoint List',
       description : "Endpoint List",
@@ -189,5 +178,16 @@ function (angular, app, _, PanelMeta) {
 
     $scope.init();
 
-  });
+  }
+
+  function endpointListPanel() {
+    return {
+      controller: endpointListPanelCtrl,
+      templateUrl: 'public/plugins/raintankendpointlist/module.html',
+    };
+  }
+
+  return {
+    panel: endpointListPanel
+  };
 });

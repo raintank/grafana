@@ -25,6 +25,12 @@
 @purple:                #9933CC;
 @variable:              #32D1DF;
 
+// Status colors
+// -------------------------
+@online:                #10a345;
+@warn:                  #ffc03c;
+@critical:              #ed2e18;
+
 // grafana Variables
 // -------------------------
 @grafanaPanelBackground: 	@grayDarker;
@@ -41,8 +47,8 @@
 @grafanaTargetFuncBackground: #333;
 @grafanaTargetFuncHightlight: #444;
 
-
-@modalBackground: 			@black;
+@modalBackground: @black;
+@codeTagBackground: #444;
 
 // Scaffolding
 // -------------------------
@@ -53,7 +59,7 @@
 // Links
 // -------------------------
 @linkColor:             darken(@white,11%);
-@linkColorDisabled:     darken(@linkColor,45%);
+@linkColorDisabled:     darken(@linkColor,30%);
 @linkColorHover:        @white;
 
 
@@ -70,7 +76,7 @@
 @altFontFamily:         @serifFontFamily;
 
 @headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
-@headingsFontWeight:    bold;    // instead of browser default, bold
+@headingsFontWeight:    normal;    // instead of browser default, bold
 @headingsColor:         darken(@white,11%); // empty to use BS default, @textColor
 @inputText:             @black;
 
@@ -152,6 +158,12 @@
 @formActionsBackground:         transparent;
 @inputHeight:                   @baseLineHeight + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
 
+// Sidemenu
+// -------------------------
+@sideMenuTopShadow:          @navbarDropdownShadow;
+@sideMenuBorder:             1px solid @bodyBackground;
+@sideMenuBackground:         @grayDark;
+@sideMenuBackgroundHighlight: lighten(@grayDark, 4%);
 
 // Dropdowns
 // -------------------------
@@ -159,6 +171,8 @@
 @dropdownBorder:                rgba(0,0,0,.2);
 @dropdownDividerTop:            transparent;
 @dropdownDividerBottom:         #444;
+@dropdownDivider:               @dropdownDividerBottom;
+@dropdownTitle:                 @linkColorDisabled;
 
 @dropdownLinkColor:             @textColor;
 @dropdownLinkColorHover:        @white;
@@ -229,6 +243,8 @@
 @navbarBrandColor:                @linkColor;
 @navbarDropdownShadow:            inset 0px 4px 10px -4px @bodyBackground;
 
+@navbarButtonBackground:          lighten(@navbarBackground, 3%);
+@navbarButtonBackgroundHighlight: lighten(@navbarBackground, 5%);
 
 // Pagination
 // -------------------------

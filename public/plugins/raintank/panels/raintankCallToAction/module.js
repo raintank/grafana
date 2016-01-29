@@ -7,18 +7,7 @@ define([
 function (angular, app, _, PanelMeta) {
   'use strict';
 
-  var module = angular.module('grafana.panels.raintankCallToAction', []);
-  app.useModule(module);
-
-  app.useModule(module);
-  module.directive('grafanaPanelRaintankcalltoaction', function() {
-    return {
-      controller: 'raintankCallToAction',
-      templateUrl: 'plugins/raintank/panels/raintankCallToAction/module.html',
-    };
-  });
-
-  module.controller('raintankCallToAction', function($scope, panelSrv, backendSrv) {
+  function ctaPanelCtrl($scope, panelSrv, backendSrv) {
     $scope.panelMeta = new PanelMeta({
       panelName: 'Raintank Call To Action',
       description : "Call To Action",
@@ -118,5 +107,16 @@ function (angular, app, _, PanelMeta) {
     };
 
     $scope.init();
-  });
+  }
+
+  function ctaPanel() {
+    return {
+      controller: ctaPanelCtrl,
+      templateUrl: 'public/plugins/raintankcalltoaction/module.html',
+    };
+  }
+
+  return {
+    panel: ctaPanel,
+  };
 });

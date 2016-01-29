@@ -31,6 +31,12 @@
 @purple:                #9954BB;
 @variable:              #2AB2E4;
 
+// Status colors
+// -------------------------
+@online:                #10a345;
+@warn:                  #ffc03c;
+@critical:              #ed2e18;
+
 // grafana Variables
 // -------------------------
 @grafanaPanelBackground: 	@grayLighter;
@@ -55,6 +61,7 @@
 @grafanaTargetFuncHightlight: darken(@grafanaTargetBackground, 10%);
 
 @modalBackground: @bodyBackground;
+@codeTagBackground: #ddd;
 
 // Scaffolding
 // -------------------------
@@ -164,12 +171,21 @@
 @inputHeight:                   @baseLineHeight + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
 @inputText:                     #020202;
 
+// Sidemenu
+// -------------------------
+@sideMenuTopShadow:             @navbarDropdownShadow;
+@sideMenuBorder:                1px solid @grafanaTargetBorder;
+@sideMenuBackground:            @grafanaPanelBackground;
+@sideMenuBackgroundHighlight:   darken(@sideMenuBackground, 4%);
+
 // Dropdowns
 // -------------------------
 @dropdownBackground:            @white;
 @dropdownBorder:                rgba(0,0,0,.2);
 @dropdownDividerTop:            #e5e5e5;
 @dropdownDividerBottom:         @white;
+@dropdownDivider:               @dropdownDividerTop;
+@dropdownTitle:                 #333;
 
 @dropdownLinkColor:             @grayDark;
 @dropdownLinkColorHover:        @white;
@@ -241,6 +257,9 @@
 @navbarDropdownShadow:            inset 0px 4px 10px -4px darken(@bodyBackground, 20%);
 
 @navbarBrandColor:                @navbarLinkColor;
+
+@navbarButtonBackground:          lighten(@navbarBackground, 3%);
+@navbarButtonBackgroundHighlight: lighten(@navbarBackground, 5%);
 
 
 // Pagination

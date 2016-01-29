@@ -29,6 +29,11 @@ func getFrontendSettingsMap(c *middleware.Context) (map[string]interface{}, erro
 	datasources := make(map[string]interface{})
 	var defaultDatasource string
 
+	enabledPlugins, err := plugins.GetEnabledPlugins(c.OrgId)
+	if err != nil {
+		return nil, err
+	}
+
 	for _, ds := range orgDataSources {
 		url := ds.Url
 
@@ -42,7 +47,7 @@ func getFrontendSettingsMap(c *middleware.Context) (map[string]interface{}, erro
 			"url":  url,
 		}
 
-		meta, exists := plugins.DataSources[ds.Type]
+		meta, exists := enabledPlugins.DataSources[ds.Type]
 		if !exists {
 			log.Error(3, "Could not find plugin definition for data source: %v", ds.Type)
 			continue
@@ -62,6 +67,9 @@ func getFrontendSettingsMap(c *middleware.Context) (map[string]interface{}, erro
 			if ds.BasicAuth {
 				dsMap["basicAuth"] = util.GetBasicAuthHeader(ds.BasicAuthUser, ds.BasicAuthPassword)
 			}
+			if ds.WithCredentials {
+				dsMap["withCredentials"] = ds.WithCredentials
+			}
 
 			if ds.Type == m.DS_INFLUXDB_08 {
 				dsMap["username"] = ds.User
@@ -79,6 +87,10 @@ func getFrontendSettingsMap(c *middleware.Context) (map[string]interface{}, erro
 
 		if ds.Type == m.DS_ES {
 			dsMap["index"] = ds.Database
+		}
+
+		if ds.Type == m.DS_INFLUXDB {
+			dsMap["database"] = ds.Database
 		}
 
 		if ds.Type == m.DS_PROMETHEUS {
@@ -114,24 +126,25 @@ func getFrontendSettingsMap(c *middleware.Context) (map[string]interface{}, erro
 		"url":  "/api/graphite",
 	}
 
+	panels := map[string]interface{}{}
+	for _, panel := range enabledPlugins.Panels {
+		panels[panel.Id] = map[string]interface{}{
+			"module": panel.Module,
+			"name":   panel.Name,
+		}
+	}
+
 	jsonObj := map[string]interface{}{
 		"defaultDatasource": defaultDatasource,
 		"datasources":       datasources,
+		"panels":            panels,
 		"appSubUrl":         setting.AppSubUrl,
 		"allowOrgCreate":    (setting.AllowUserOrgCreate && c.IsSignedIn) || c.IsGrafanaAdmin,
+		"authProxyEnabled":  setting.AuthProxyEnabled,
 		"buildInfo": map[string]interface{}{
 			"version":    setting.BuildVersion,
 			"commit":     setting.BuildCommit,
 			"buildstamp": setting.BuildStamp,
-		},
-		//TODO: this should loaded from the config file.
-		"plugins": map[string]interface{}{
-			"dependencies": []string{"raintank/all"},
-			"panels": map[string]interface{}{
-				"raintankCallToAction": map[string]string{"path": "../plugins/raintank/panels/raintankCallToAction", "name": "Raintank Call To Action"},
-				"raintankEventsPanel":  map[string]string{"path": "../plugins/raintank/panels/raintankEventsPanel", "name": "Raintank Events"},
-				"raintankEndpointList": map[string]string{"path": "../plugins/raintank/panels/raintankEndpointList", "name": "Raintank Endpoint List"},
-			},
 		},
 	}
 

@@ -1,12 +1,11 @@
 define([
   'angular',
+  'app/core/core_module'
 ],
-function (angular) {
+function (angular, coreModule) {
   "use strict";
 
-  var module = angular.module('grafana.routes');
-
-  module.config(function($routeProvider) {
+  coreModule.default.config(function($routeProvider) {
     $routeProvider
       .when('/collectors', {
         templateUrl: 'plugins/raintank/features/partials/collectors.html',
