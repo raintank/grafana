@@ -24,241 +24,113 @@
 	</div>
 </topnav>
 
-<div style="margin: 10px; position: relative; display: block; max-width: 1000px; min-width:400px;">
+<div style="margin-left: 85px;">
 
-	<!-- page title -->
-	<div class="rt-page-header-area">
-		<h1 class="rt-h1">{{endpoint.name}}</h1><a ng-click="gotoDashboard(endpoint)"><i ng-class="icon" class="primary-icon-header dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus: Summary </br>dashboard for this endpoint'"></i></a>
-	</div>
-	<div class="editor-row rt-detail-pages">
-		<div class="editor-option">
-			<bootstrap-tagsinput ng-model="endpoint.tags" tagclass="label rt-label-tag" placeholder="New Tag" on-tags-updated="tagsUpdated()" ></bootstrap-tagsinput>
+	<div style="margin: 10px; position: relative; display: block; max-width: 1000px; min-width:400px;">
+
+		<!-- page title -->
+		<div class="rt-page-header-area" style="margin-bottom: 50px;">
+			<h1 class="rt-h1">{{endpoint.name}}</h1><a ng-click="gotoDashboard(endpoint)"><i ng-class="icon" class="primary-icon-header dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus: Summary </br>dashboard for this endpoint'"></i></a>
+		</div>
+
+		<!-- tabs -->
+		<div class="rt-tabs">
+			<span class="active"><a href="endpoints/summary/{{endpoint.id}}">Device Details</a></span>  <span class="nonactive"><a href="endpoints/edit/{{endpoint.id}}">Configuration</a></span>
+			<span style="margin-left: 15px;" class="nonactive"><a href="endpoints/edit/{{endpoint.id}}">Installation</a></span>
 		</div>
 	</div>
 
-	<!-- tabs -->
-	<div class="rt-tabs">
-		<span class="active"><a href="endpoints/summary/{{endpoint.id}}">Status</a></span>  <span class="nonactive"><a href="endpoints/edit/{{endpoint.id}}">Configuration</a></span>
-	</div>
-</div>
+	<form name="collectorForm">
+		<div class="detailContainer">
+			<div class="detailColumn detail-left-70-30">
+			<div class="rt-box clearBack oneCol">
+					<span><a class="superCTA" ng-click="gotoDashboard(collector)">Go to {{collector.name}} Dashboard <i ng-class="icon" class="icon-rt-dashboard"></i></a></span>
+				</div>
+				<div class="rt-box">
+					<div class="rt-box-header">Flow Stats
+					</div>
+					<div class="rt-box-body no-padding" style="min-height: 50px">
+						<div class="collectorCurrentStatus">
+							<p> Stats about flow </p>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				<div class="rt-box">
+					<div class="rt-box-header">BGP Stats
+					</div>
+					<div class="rt-box-body no-padding" style="min-height: 50px">
+						<div class="collectorCurrentStatus">
+							<p> Stats about BGP </p>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>				
+			</div>
+			<div class="detailColumn detail-right-70-30">
+				<div class="rt-box clearBack twoCol">
+					<div class="rt-box">
+						<div class="rt-box-header">Status</div>
+						<div class="rt-box-body no-padding" style="min-height: 50px">
+					    </div>
+					</div>
+					<div class="rt-box">
+						<div class="rt-box-header">Device Details</div>
+						<div class="rt-box-body no-padding" style="min-height: 50px">
+							<div class="rt-mini-form new-endpoint-domain-form collectorCurrentStatus">
+					            <div class="rt-mini-form-col">
+					              <div class="label-value-tight-list">
+					              	<span class="small">Device Name</span>
+								  	<p class="rt-body-copy">{{endpoint.name}}</p>
+								  </div>
+					              <div class="label-value-tight-list">
+					              	<span class="small">Device ID</span>
+								  	<p class="rt-body-copy">13579</p>
+								  </div>
+					              <div class="label-value-tight-list">
+					              	<span class="small">Type</span>
+								  	<p class="rt-body-copy">Router</p>
+								  </div>
+					              <div class="label-value-tight-list">
+					              	<span class="small">ClientID</span>
+								  	<p class="rt-body-copy">123:{{endpoint.name}}:13579</p>
+								  </div>
+					              <div class="label-value-tight-list">
+					              	<span class="small">MaxFPS</span>
+								  	<p class="rt-body-copy">4000</p>
+								  </div>
+					              <div class="label-value-tight-list">
+					              	<span class="small">Retention</span>
+								  	<p class="rt-body-copy">400 years</p>
+								  </div>								  
+					            </div>
+					          </div>
+					    </div>
+					</div>					
+				</div>
 
-<form name="endpointForm">
-	<div class="detailContainer">
-		<div class="detailFull detailLeft">
-			<div class="rt-box">
-				<div class="rt-box-body no-padding" style="min-height: 50px">
-					<div class="currentStatus summary-table">
-						<ul class="summary-table-actions">
-							<li ng-show="getMonitorByTypeName('Ping').enabled">
-								<a ng-click="gotoDashboard(endpoint, 'ping')">
-									<i ng-class="icon" class="primary-icon dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus Endpoint: </br>dashboard for Ping'"></i>
-								</a>					
-							</li>
-							<li>
-								<a href="endpoints/edit/{{endpoint.id}}#ping">
-									<i ng-class="icon" class="icon-rt-settings miniCTA" style="vertical-align: middle; font-size: 22px; margin-left: 10px;"></i>
-								</a>
-							</li>
-						</ul>
-						<div class="summary-table-status-icon">
-	 						<div ng-if="!pageReady" class="health">
-								<img ng-src="img/heart-loading.svg" style="width: 40px; height: 40px; opacity: 0.4;">
-							</div>
-	 						<div ng-if="pageReady" class="health">
-								<img ng-src="img/{{monitorStateClass(getMonitorByTypeName('Ping'))}}.svg" style="width: 40px; height: 40px;">
-							</div>
-						</div>
-						<ul class="summary-table-status">
-							<li>
-								<span class="checkType">Ping:</span>
-								<div ng-if="!pageReady">
-									<div class="checkStatus">&nbsp;</div>
-								</div>
-								<div ng-if="pageReady">
-									<div ng-show="getMonitorByTypeName('Ping').enabled">
-										<span class="checkStatus {{monitorStateClass(getMonitorByTypeName('Ping'))}}">{{monitorStateTxt(getMonitorByTypeName('Ping'))}}</span>
-										<span class="checkTime">{{stateChangeStr(getMonitorByTypeName('Ping'))}}</span>
-									</div>
-									<div ng-show="!getMonitorByTypeName('Ping').enabled">
-										<a href="endpoints/edit/{{endpoint.id}}#ping" class="freqMsg disabled">Not enabled, configure now.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="endpoint-alerting" ng-show="getMonitorByTypeName('Ping').enabled">
-									<div ng-if="!getMonitorByTypeName('Ping').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status not-enabled"><i ng-class="icon" class="icon icon-rt-alert-disabled"></i><a href="endpoints/edit/{{endpoint.id}}#ping" class="freqMsg disabled">Alerting not enabled,<br>configure now</a></span>
-									</div>
-									<div ng-if="getMonitorByTypeName('Ping').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status"><i ng-class="icon" class="icon icon-rt-alert"></i><a href="endpoints/edit/{{endpoint.id}}#ping">Alerting Enabled</span>
-										<span class="endpoint-alerting-recipients" bs-tooltip="'{{getNotificationEmailsAsString('Ping')}}'"><i ng-class="icon" class="icon icon-rt-users"></i>{{getNotificationEmails('Ping').length}} recipients</span></a>
-									</div>
-								</div>								
-							</li>
-						</ul>
-						<div class="summary-table-info">
-							<div ng-show="getMonitorByTypeName('Ping').enabled">
-								<div class="frequency">
-									<span class="freqMsg"><span class="emphasis">Events - </span>&nbsp;Last check from&nbsp;</span>{{getMonitorByTypeName('Ping').collectors.length}}<span class="freqMsg">&nbsp;probes&nbsp;</span><a ng-click="gotoEventDashboard(endpoint, 'ping')" bs-tooltip="'Go to Litmus: Events </br>dashboard for Ping'"><i class="frequency fa fa-fw fa-external-link"></i></a>
-								</div>
-								<rt-check-health model="getMonitorByTypeName('Ping')"></rt-check-health>
+
+			</div>
+		</div>
+		<div class="detailContainer" ng-show="collector.online">
+			<div class="detailColumn detailFull">
+				<div class="rt-box">
+					<div class="rt-box-header">Probe Events: Last 30 Days
+						<div style="float: right; display: inline;">
+							<div style="display: inline; margin-right: 15px;">
+								<a ng-click="gotoEventDashboard(collector)"><i ng-class="icon" class="dashboard-icon icon-rt-jump-to-dashboard"></i><span class="disabled small" style="vertical-align: text-top;">&nbsp;Go to Litmus: Events dashboard</span></a>
 							</div>
 						</div>
 					</div>
-					<div class="currentStatus summary-table">
-						<ul class="summary-table-actions">
-							<li ng-show="getMonitorByTypeName('DNS').enabled">
-								<a ng-click="gotoDashboard(endpoint, 'dns')"><i ng-class="icon" class="primary-icon dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus Endpoint: </br>dashboard for DNS'"></i></a>					
-							</li>
-							<li>
-								<a href="endpoints/edit/{{endpoint.id}}#dns">
-									<i ng-class="icon" class="icon-rt-settings in-row-icons miniCTA"></i>
-								</a>
-							</li>
-						</ul>
-						<div class="summary-table-status-icon">
-							<div class="health">
-								<img ng-src="img/{{monitorStateClass(getMonitorByTypeName('DNS'))}}.svg" style="width: 40px; height: 40px;">
-							</div>
+					<div class="rt-box-body no-padding">
+						<div class="panel-iframe-container">
+							<div class="panel-iframe-container-bg">
+								<iframe ng-src="{{getEventsDashboardLink(collector)}}" width="100%" height="501" frameborder="0"></iframe>
 						</div>
-						<ul class="summary-table-status">
-							<li>
-								<span class="checkType">DNS:</span>
-								<div ng-show="getMonitorByTypeName('DNS').enabled">
-									<span class="checkStatus {{monitorStateClass(getMonitorByTypeName('DNS'))}}">{{monitorStateTxt(getMonitorByTypeName('DNS'))}}</span>
-									<span class="checkTime">{{stateChangeStr(getMonitorByTypeName('DNS'))}}</span>
-								</div>
-								<div ng-show="!getMonitorByTypeName('DNS').enabled">
-									<a href="endpoints/edit/{{endpoint.id}}#dns" class="freqMsg disabled">Not enabled, configure now.</a>
-								</div>
-							</li>
-							<li>
-								<div class="endpoint-alerting" ng-show="getMonitorByTypeName('DNS').enabled">
-									<div ng-if="!getMonitorByTypeName('DNS').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status not-enabled"><i ng-class="icon" class="icon icon-rt-alert-disabled"></i><a href="endpoints/edit/{{endpoint.id}}#dns" class="freqMsg disabled">Alerting not enabled,<br>configure now</a></span>
-									</div>
-									<div ng-if="getMonitorByTypeName('DNS').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status"><i ng-class="icon" class="icon icon-rt-alert"></i><a href="endpoints/edit/{{endpoint.id}}#dns">Alerting Enabled</span>
-										<span class="endpoint-alerting-recipients" bs-tooltip="'{{getNotificationEmailsAsString('DNS')}}'"><i ng-class="icon" class="icon icon-rt-users"></i>{{getNotificationEmails('DNS').length}} recipients</span></a>
-									</div>
-								</div>
-							</li>							
-						</ul>
-						<div class="summary-table-info">
-							<div ng-show="getMonitorByTypeName('DNS').enabled">
-								<div class="frequency">
-									<span class="freqMsg"><span class="emphasis">Events - </span>&nbsp;Last check from&nbsp;</span>{{getMonitorByTypeName('DNS').collectors.length}}<span class="freqMsg">&nbsp;probes&nbsp;</span><a ng-click="gotoEventDashboard(endpoint, 'dns')" bs-tooltip="'Go to Litmus: Events </br>dashboard for DNS'"><i class="frequency fa fa-fw fa-external-link"></i></a>
-								</div>
-								<rt-check-health model="getMonitorByTypeName('DNS')"></rt-check-health>
-							</div>
-						</div>
-					</div>
-					<div class="currentStatus summary-table">
-						<ul class="summary-table-actions">
-							<li ng-show="getMonitorByTypeName('HTTP').enabled">
-								<a ng-click="gotoDashboard(endpoint, 'http')">
-									<i ng-class="icon" class="primary-icon dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus Endpoint: </br>dashboard for HTTP'"></i>
-								</a>
-							</li>
-							<li>
-								<a href="endpoints/edit/{{endpoint.id}}#http">
-									<i ng-class="icon" class="icon-rt-settings in-row-icons miniCTA"></i>
-								</a>
-							</li>
-						</ul>
-						<div class="summary-table-status-icon">
-							<div class="health">
-								<img ng-src="img/{{monitorStateClass(getMonitorByTypeName('HTTP'))}}.svg" style="width: 40px; height: 40px;">
-							</div>
-						</div>
-						<ul class="summary-table-status">
-							<li>
-								<span class="checkType">HTTP:</span>
-								<div ng-show="getMonitorByTypeName('HTTP').enabled">
-									<span class="checkStatus {{monitorStateClass(getMonitorByTypeName('HTTP'))}}">{{monitorStateTxt(getMonitorByTypeName('HTTP'))}}</span>
-									<span class="checkTime">{{stateChangeStr(getMonitorByTypeName('HTTP'))}}</span>
-								</div>
-								<div ng-show="!getMonitorByTypeName('HTTP').enabled">
-         					<a href="endpoints/edit/{{endpoint.id}}#http" class="freqMsg disabled">Not enabled, configure now.</a>
-        				</div>						
-							</li>
-							<li>
-								<div class="endpoint-alerting" ng-show="getMonitorByTypeName('HTTP').enabled">
-									<div ng-if="!getMonitorByTypeName('HTTP').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status not-enabled">
-											<i ng-class="icon" class="icon icon-rt-alert-disabled"></i><a href="endpoints/edit/{{endpoint.id}}#http" class="freqMsg disabled">Alerting not enabled,<br>configure now</a>
-										</span>
-									</div>
-									<div ng-if="getMonitorByTypeName('HTTP').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status"><i ng-class="icon" class="icon icon-rt-alert"></i><a href="endpoints/edit/{{endpoint.id}}#http">Alerting Enabled</span>
-										<span class="endpoint-alerting-recipients" bs-tooltip="'{{getNotificationEmailsAsString('HTTP')}}'"><i ng-class="icon" class="icon icon-rt-users"></i>{{getNotificationEmails('HTTP').length}} recipients</span></a>
-									</div>
-								</div>
-							</li>
-						</ul>
-						<div class="summary-table-info">
-							<div ng-show="getMonitorByTypeName('HTTP').enabled">
-								<div class="frequency">
-									<span class="freqMsg"><span class="emphasis">Events - </span>&nbsp;Last check from&nbsp;</span>{{getMonitorByTypeName('HTTP').collectors.length}}<span class="freqMsg">&nbsp;probes&nbsp;</span><a ng-click="gotoEventDashboard(endpoint, 'http')" bs-tooltip="'Go to Litmus: Events </br>dashboard for HTTP'"><i class="frequency fa fa-fw fa-external-link"></i></a>
-								</div>
-								<rt-check-health model="getMonitorByTypeName('HTTP')"></rt-check-health>
-							</div>
-						</div>
-					</div>
-					<div class="currentStatus summary-table">
-						<ul class="summary-table-actions">
-							<li ng-show="getMonitorByTypeName('HTTPS').enabled">
-								<a ng-click="gotoDashboard(endpoint, 'https')">
-									<i ng-class="icon" class="primary-icon dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus Endpoint: </br>dashboard for HTTPS'"></i>
-								</a>
-							</li>
-							<li>
-								<a href="endpoints/edit/{{endpoint.id}}#https">
-									<i ng-class="icon" class="icon-rt-settings in-row-icons miniCTA"></i>
-								</a>
-							</li>
-						</ul>
-						<div class="summary-table-status-icon">
-							<div class="health">
-								<img ng-src="img/{{monitorStateClass(getMonitorByTypeName('HTTPS'))}}.svg" style="width: 40px; height: 40px;">
-							</div>
-						</div>
-						<ul class="summary-table-status">
-							<li>
-								<span class="checkType">HTTPS:</span>
-								<div ng-show="getMonitorByTypeName('HTTPS').enabled">
-									<span class="checkStatus {{monitorStateClass(getMonitorByTypeName('HTTPS'))}}">{{monitorStateTxt(getMonitorByTypeName('HTTPS'))}}</span>
-									<span class="checkTime">{{stateChangeStr(getMonitorByTypeName('HTTPS'))}}</span>
-								</div>
-								<div ng-show="!getMonitorByTypeName('HTTPS').enabled">
-         					<a href="endpoints/edit/{{endpoint.id}}#https" class="freqMsg disabled">Not enabled, configure now.</a>
-        				</div>						
-							</li>
-							<li>
-								<div class="endpoint-alerting" ng-show="getMonitorByTypeName('HTTPS').enabled">
-									<div ng-if="!getMonitorByTypeName('HTTPS').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status not-enabled">
-											<i ng-class="icon" class="icon icon-rt-alert-disabled"></i><a href="endpoints/edit/{{endpoint.id}}#https" class="freqMsg disabled">Alerting not enabled,<br>configure now</a>
-										</span>
-									</div>
-									<div ng-if="getMonitorByTypeName('HTTPS').health_settings.notifications.enabled">
-										<span class="endpoint-alerting-status"><i ng-class="icon" class="icon icon-rt-alert"></i><a href="endpoints/edit/{{endpoint.id}}#http">Alerting Enabled</span>
-										<span class="endpoint-alerting-recipients" bs-tooltip="'{{getNotificationEmailsAsString('HTTPS')}}'"><i ng-class="icon" class="icon icon-rt-users"></i>{{getNotificationEmails('HTTPS').length}} recipients</span></a>
-									</div>
-								</div>
-							</li>
-						</ul>
-						<div class="summary-table-info">
-							<div ng-show="getMonitorByTypeName('HTTPS').enabled">
-								<div class="frequency">
-									<span class="freqMsg"><span class="emphasis">Events - </span>&nbsp;Last check from&nbsp;</span>{{getMonitorByTypeName('HTTPS').collectors.length}}<span class="freqMsg">&nbsp;probes&nbsp;</span><a ng-click="gotoEventDashboard(endpoint, 'https')" bs-tooltip="'Go to Litmus: Events </br>dashboard for HTTPS'"><i class="frequency fa fa-fw fa-external-link"></i></a>
-								</div>
-								<rt-check-health model="getMonitorByTypeName('HTTPS')"></rt-check-health>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
+</div>

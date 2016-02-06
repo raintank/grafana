@@ -15,7 +15,7 @@
         "height": "125px",
         "panels": [
           {
-            "content": "<img src=\"/img/litmus-by-grey.svg\" width=\"450\" style=\"margin-top: 25px;\">",
+            "content": "<img src=\"/img/kentik-logo.png\" width=\"250px\" style=\"margin-top: 25px;\">",
             "editable": true,
             "error": false,
             "id": 2,
@@ -88,9 +88,9 @@
             "query": "",
             "span": 4,
             "tags": [
-              "raintank"
+              "kentik"
             ],
-            "title": "raintank dashboards",
+            "title": "kentik dashboards",
             "type": "dashlist"
           }
         ],

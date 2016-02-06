@@ -1,7 +1,7 @@
 <grafana-panel>
 <div class="rt-page-header-area" style="margin-left:25px; margin-bottom: 35px;">
-    <h1 class="rt-h1">Endpoints</h1>
-    <span style="float: right; margin-top: 10px; margin-right: 20px;"><a class="rt-btn" href="endpoints/new">New Endpoint</a></span>
+    <h1 class="rt-h1">Kentik Devices</h1>
+    <span style="float: right; margin-top: 10px; margin-right: 20px;"><a class="rt-btn" href="endpoints/new">New Device</a></span>
 </div>
 <div ng-if="!pageReady" class="rt-loading-message-container">
     <div class="rt-loading-message-inside">
@@ -14,44 +14,10 @@
 <div ng-if="pageReady">
     <div ng-if="endpoints.length === 0" class="rt-dash-flex-container" style="align-items: center; min-height: 350px;">
         <div style="text-align: center; min-height: 220px; min-width: 400px;  margin: 0 auto;">
-            <i ng-class="icon" class="icon-rt-endpoint no-endpoints"></i>
-            <p>Looks like you don’t have any endpoints yet. <a class="rt-body-link" href="endpoints/new">Add an endpoint now.</a></p>
-        </div>
-        <div class="rt-panel-CTA-flex-container">
-            <div class="rt-dash-flex-item rt-CTA-flex-copy">
-                <p class="emphasis">Want to see some live data?</p>
-                <p>View the demo  <a href="/dashboard/file/rt-endpoint-summary.json?var-endpoint=~google_com_demo" class="rt-body-link">google.com</a> endpoint to see worldwide performance in 21 cities across 5 continents.</p>
-                <a href="/dashboard/file/rt-endpoint-summary.json?var-endpoint=~google_com_demo"><button class="secondaryCTA ButtonTall" style="position:relative; top:-1px;">View the google.com Dashboard </button></a>
-            </div>
-            <div class="rt-dash-flex-item rt-CTA-flex-image">    
-               <p><a href="/dashboard/file/rt-endpoint-summary.json?var-endpoint=~google_com_demo"><img src="/img/google_endpoint_preview.png"></a></p>
-            </div>
-        </div>        
-        <div style="text-align: center; margin: 0 auto 25px auto;">
-            <p bs-tooltip="'An endpoint is anything you want to monitor. <br><br>When you enter the fully qualified domain name of your endpoint, Litmus will automatically detect what is available to monitor (eg. PING, HTTP, HTTPS) and suggest a customizable set of defaults unique to your endpoint.'">What's an endpoint? <i class="grafana-tip fa fa-question-circle ng-scope"></i></p>
-        </div>        
-    </div>
-    <div ng-if="endpoints.length > 0" style="margin-left: 28px;" class="editor-row">
-        <div class="editor-option">
-            <span class="small">Filtered by:</span>
-            <div class="select-input">
-                <select ng-model="filter.tag" ng-options="t for t in endpointTags()">
-                    <option value="">All Tags</option>
-                </select>
-            </div>
+            <i ng-class="icon" class="fa fa-server no-endpoints"></i>
+            <p>Looks like you don’t have any devices yet. <a class="rt-body-link" href="endpoints/new">Add an device now.</a></p>
 
-        </div>
-        <div style="display: block; padding: 45px 0 0 0;">
-            <div style="display: inline-block" class="rt-list-status">
-                <span class="small">Showing {{(endpoints | filterByTag:filter.tag).length}}</span>
-                <span class="small"> of <span class="rt-list-links" ng-click="setTagFilter('')">{{endpoints.length}} total</a></span>
-            </div>
-            <div class="editor-option" style="float: right;">
-<!--                    <span class="small">Sorted By:</span>
-                <div class="select-input">
-                    <select ng-model="sort_field" ng-options="field for field in ['name']"></select>
-                </div> -->
-            </div>
+            <p bs-tooltip="'Devices are routers and hosts that Kentik ingests and stores full-resolution network data — NetFlow, SNMP, BGP — and scale seamlessly to any volume of flow.'">What's a device? <i class="grafana-tip fa fa-question-circle ng-scope"></i></p>
         </div>
     </div>
 </div>
@@ -61,26 +27,6 @@
     <div class="rt-list" ng-repeat="endpoint in endpoints | filterByTag:filter.tag | orderBy:sort_field">
         <div class="rt-list-header rt-page-box-header" style="overflow: visible; padding:5px;" ng-click="gotoEndpointURL(endpoint)">
             <span class="rt-list-item-title"><a href="/endpoints/summary/{{endpoint.id}}">{{endpoint.name}}</a></span>
-
-            <div style="display: inline-block;">
-                <span class="label rt-label-tag dropdown rt-list-tag-menu" ng-repeat="tag in endpoint.tags" tag-color-from-name="tag">
-                    <a data-toggle="dropdown">{{tag}} <i ng-class="icon" class="tag-icon icon-rt-endpoint-tiny"></i></a>
-                    <ul class="dropdown-menu rt-tag-dropup">
-                        <li>
-                            <a href="#" bs-tooltip="'Coming Soon'">
-                                <i ng-class="icon" class="dashboard-icon icon-rt-jump-to-dashboard"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-click="setTagFilter(tag)">
-                                <i ng-class="icon" class="dashboard-icon icon-rt-filter"></i>
-                                Filter
-                            </a>
-                        </li>
-                    </ul>
-                </span>
-            </div>
                 <div style="float: right;">
                 <div style="display: inline;">
                     <rt-endpoint-health endpoint="endpoint"></rt-endpoint-health>
