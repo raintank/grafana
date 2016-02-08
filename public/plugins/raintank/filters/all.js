@@ -15,6 +15,7 @@ define(['angular', 'lodash', 'app/core/core_module'], function (angular, _, core
       return filtered;
     };
   });
+
   coreModule.default.filter('timeDuration', function() {
     return function(time) {
       var duration = new Date().getTime() - new Date(time).getTime();

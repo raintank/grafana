@@ -60,6 +60,10 @@
                           <!-- This is a complex field that should handle host, path and port ex: https://www.google.com/raintankrocks:8258-->
                         </div>
                         <div class="rt-flex-form-field">
+                          <label class="small">Timeout (seconds)</label>
+                          <input class="rt-input-short-text" ng-model="currentSettingByVariable(monitors['http'], 'timeout').value" type="text" ng-pattern="timeoutRegex"> 
+                        </div>
+                        <div class="rt-flex-form-field">
                           <label class="small">Path</label>
                           <input type="text" class="rt-input-long-text" ng-model="currentSettingByVariable(monitors['http'], 'path').value"> 
                           <!-- This is a complex field that should handle host, path and port ex: https://www.google.com/raintankrocks:8258-->
@@ -83,7 +87,7 @@
                         <div class="rt-flex-form-field">
                           <label class="small">Headers</label>
                            <textarea class="rt-input-styles rt-textarea-row" ng-model="currentSettingByVariable(monitors['http'], 'headers').value"></textarea>
-                        </div>  
+                        </div>
                       </div>
                     </div>
                   </div>

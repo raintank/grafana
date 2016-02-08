@@ -50,11 +50,15 @@
                           <label class="small">Hostname</label>
                           <input type="text" class="rt-input-long-text" ng-model="currentSettingByVariable(monitors['ping'], 'hostname').value"> 
                         </div>
-                      </div>
+                        <div class="rt-flex-form-field">
+                          <label class="small">Timeout (seconds)</label>
+                          <input class="rt-input-short-text" ng-model="currentSettingByVariable(monitors['ping'], 'timeout').value" type="text" ng-pattern="timeoutRegex">
+                        </div>                        
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
             </div>
              <div class="rt-box-interior-section">
               <div class="rt-box-interior-header-icon">

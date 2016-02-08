@@ -48,7 +48,7 @@ input[type="color"] {
   }
   select, 
   textarea, 
-  input[type="text"] {
+  input[type="text"], input[type="number"] {
     display: inline-block;
     // height: 20px;
     padding: 6px 10px;
@@ -134,6 +134,13 @@ input[type="color"] {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-end;
+}
+
+.rt-flex-line-wrap {
+  flex-basis: 100%;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
 }
 
 

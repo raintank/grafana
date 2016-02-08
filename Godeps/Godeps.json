@@ -271,13 +271,13 @@
 		},
 		{
 			"ImportPath": "github.com/raintank/raintank-metric/msg",
-			"Comment": "pkg-0.1.0-1442246038ubuntu1",
-			"Rev": "cda26b60379bd2d8fbb4cc5e6c34b155e1615b1c"
+			"Comment": "pkg-0.1.0-1454032195ubuntu1-1-ge9f7088",
+			"Rev": "e9f7088097749e5f4c2299e5c44f95b874a0a173"
 		},
 		{
 			"ImportPath": "github.com/raintank/raintank-metric/schema",
-			"Comment": "pkg-0.1.0-1442246038ubuntu1",
-			"Rev": "cda26b60379bd2d8fbb4cc5e6c34b155e1615b1c"
+			"Comment": "pkg-0.1.0-1454032195ubuntu1-1-ge9f7088",
+			"Rev": "e9f7088097749e5f4c2299e5c44f95b874a0a173"
 		},
 		{
 			"ImportPath": "github.com/rainycape/unidecode",

@@ -8,6 +8,7 @@
 @import "components/mini-form.less";
 @import "layout/forms.less";
 @import "layout/page.less";
+// layout/panels.less imported at the bottom to address specificity issues, pending refactor of rt.less
 @import "layout/tables.less";
 
 @import "components/box.less";
@@ -522,7 +523,7 @@ raintank TYPE
 .checkTime {color:@rt-dark-gray}
 
 .no-endpoints {
-    font-size:800%;
+    font-size:600%;
     color:@linkColor;
     opacity: 0.15;
     display: block;
@@ -1710,6 +1711,34 @@ p.rt-dashboard-copy {
      flex-direction: column;
 }
 
+.rt-panel-CTA-flex-container {
+     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+     display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+     display: -ms-flexbox;      /* TWEENER - IE 10 */
+     display: -webkit-flex;     /* NEW - Chrome */
+     display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+     justify-content: center;
+     flex-direction: row;
+     flex-wrap: wrap-reverse;
+     align-items: center;
+     text-align: center;
+     min-height: 220px;
+     margin: 0 100px 25px 80px;     
+     background: lighten(@grafanaPanelBackground,1%);
+     border: @grafanaPanelBorder;
+     padding: 5px 30px;
+
+    .rt-CTA-flex-copy {
+      flex-grow: 2;
+    }
+}
+
+.rt-CTA-flex-image {
+    min-width: 185px;
+    max-width: 200px;
+    margin-bottom: 10px;
+}
+
 .rt-dash-flex-item {
     -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
     -moz-box-flex: 1;         /* OLD - Firefox 19- */
@@ -1804,3 +1833,4 @@ a.rt-dashboard-blurb:hover{
   font-size: 60px;
 }
 
+@import "layout/panels.less";

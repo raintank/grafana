@@ -60,6 +60,10 @@
                           <input type="text" class="rt-input-long-text" ng-model="currentSettingByVariable(monitors['dns'], 'name').value"> 
                         </div>
                         <div class="rt-flex-form-field">
+                          <label class="small">Timeout (seconds)</label>
+                          <input class="rt-input-short-text" ng-model="currentSettingByVariable(monitors['dns'], 'timeout').value" type="text" ng-pattern="timeoutRegex"> 
+                        </div>                        
+                        <div class="rt-flex-form-field">
                           <label class="small">DNS Servers</label>
                            <textarea ng-model="currentSettingByVariable(monitors['dns'], 'server').value" class="rt-input-styles rt-textarea-row"></textarea>
                         </div>  
@@ -78,7 +82,7 @@
                           <div class="select-input select-interior">
                             <select ng-model="currentSettingByVariable(monitors['dns'], 'protocol').value" ng-options="p for p in defaultSettingByVariable('dns','protocol').conditions.values"></select>
                           </div>
-                        </div>                          
+                        </div>  
                     </div>
                   </div>
                 </div>

@@ -56,6 +56,10 @@
                           <!-- This is a complex field that should handle host, path and port ex: https://www.google.com/raintankrocks:8258-->
                         </div>
                         <div class="rt-flex-form-field">
+                          <label class="small">Timeout (seconds)</label>
+                          <input class="rt-input-short-text" ng-model="currentSettingByVariable(monitors['https'], 'timeout').value" type="text" ng-pattern="timeoutRegex">
+                        </div>                        
+                        <div class="rt-flex-form-field">
                           <label class="small">Path</label>
                           <input type="text" class="rt-input-long-text" ng-model="currentSettingByVariable(monitors['https'], 'path').value"> 
                           <!-- This is a complex field that should handle host, path and port ex: https://www.google.com/raintankrocks:8258-->
@@ -80,10 +84,11 @@
                           <label class="small">Headers</label>
                            <textarea class="rt-input-styles rt-textarea-row" ng-model="currentSettingByVariable(monitors['https'], 'headers').value"></textarea>
                         </div>  
+<!--                         <div class="rt-flex-line-wrap"></div> -->
                         <div class="rt-flex-form-field">
                           <input class="rt-modal" id="https-ssl-enabled1" type="checkbox"  ng-true-value="'true'" ng-false-value="'false'" ng-model="currentSettingByVariable(monitors['https'], 'validateCert').value">
                           <label for="https-ssl-enabled1" class="variable-value-link rt-modal">Validate SSL Certificate</label>
-                        </div>                          
+                        </div>                        
                       </div>
                     </div>
                   </div>

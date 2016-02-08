@@ -508,6 +508,7 @@ func (c *CollectorContext) OnEvent(msg *schema.ProbeEvent) {
 func (c *CollectorContext) OnResults(results []*schema.MetricData) {
 	metricsRecvd.Inc(int64(len(results)))
 	for _, r := range results {
+		r.SetId()
 		if !c.Collector.Public {
 			r.OrgId = int(c.OrgId)
 		}

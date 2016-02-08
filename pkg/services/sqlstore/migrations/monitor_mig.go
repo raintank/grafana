@@ -151,6 +151,9 @@ func addMonitorMigration(mg *Migrator) {
 	mg.AddMigration("insert http.expectRegex type_settings into monitor_type_setting table", new(RawSqlMigration).
 		Sqlite("INSERT INTO monitor_type_setting values(null,1,'expectRegex','Content Match','String','{}','',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
 		Mysql("INSERT INTO monitor_type_setting values(null,1,'expectRegex','Content Match','String','{}','',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
+	mg.AddMigration("insert http.timeout type_settings into monitor_type_setting table", new(RawSqlMigration).
+		Sqlite("INSERT INTO monitor_type_setting values(null,1,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
+		Mysql("INSERT INTO monitor_type_setting values(null,1,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
 
 	mg.AddMigration("insert https.host type_settings into monitor_type_setting table", new(RawSqlMigration).
 		Sqlite("INSERT INTO monitor_type_setting values(null,2,'host','Hostname','String','{}','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
@@ -173,10 +176,16 @@ func addMonitorMigration(mg *Migrator) {
 	mg.AddMigration("insert https.expectRegex type_settings into monitor_type_setting table", new(RawSqlMigration).
 		Sqlite("INSERT INTO monitor_type_setting values(null,2,'expectRegex','Content Match','String','{}','',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
 		Mysql("INSERT INTO monitor_type_setting values(null,2,'expectRegex','Content Match','String','{}','',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
+	mg.AddMigration("insert https.timeout type_settings into monitor_type_setting table", new(RawSqlMigration).
+		Sqlite("INSERT INTO monitor_type_setting values(null,2,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
+		Mysql("INSERT INTO monitor_type_setting values(null,2,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
 
 	mg.AddMigration("insert ping.hostname type_settings into monitor_type_setting table", new(RawSqlMigration).
 		Sqlite("INSERT INTO monitor_type_setting values(null,3,'hostname','Hostname','String','{}','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
 		Mysql("INSERT INTO monitor_type_setting values(null,3,'hostname','Hostname','String','{}','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
+	mg.AddMigration("insert ping.timeout type_settings into monitor_type_setting table", new(RawSqlMigration).
+		Sqlite("INSERT INTO monitor_type_setting values(null,3,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
+		Mysql("INSERT INTO monitor_type_setting values(null,3,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
 
 	mg.AddMigration("insert dns.name type_settings into monitor_type_setting table", new(RawSqlMigration).
 		Sqlite("INSERT INTO monitor_type_setting values(null,4,'name','Record Name','String','{}','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
@@ -193,6 +202,9 @@ func addMonitorMigration(mg *Migrator) {
 	mg.AddMigration("insert dns.protocol type_settings into monitor_type_setting table", new(RawSqlMigration).
 		Sqlite("INSERT INTO monitor_type_setting values(null,4,'protocol','Protocol','Enum','{\"values\": [\"tcp\",\"udp\"]}','udp',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
 		Mysql("INSERT INTO monitor_type_setting values(null,4,'protocol','Protocol','Enum','{\"values\": [\"tcp\",\"udp\"]}','udp',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
+	mg.AddMigration("insert dns.timeout type_settings into monitor_type_setting table", new(RawSqlMigration).
+		Sqlite("INSERT INTO monitor_type_setting values(null,4,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)").
+		Mysql("INSERT INTO monitor_type_setting values(null,4,'timeout','Timeout','Number','{}','5',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"))
 
 	//monitorCollector
 	var monitorCollectorV1 = Table{
