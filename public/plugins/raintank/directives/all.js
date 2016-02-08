@@ -1,11 +1,11 @@
 define([
   'angular',
-  'lodash'
-], function (angular, _) {
+  'lodash',
+  'app/core/core_module'
+], function (angular, _, coreModule) {
   'use strict';
-  var module = angular.module('grafana.directives');
 
-  module.directive('raintankSetting', function ($compile) {
+  coreModule.default.directive('raintankSetting', function ($compile) {
     return {
       transclude: true,
       restrict: 'E',
@@ -65,7 +65,7 @@ define([
     };
   });
 
-  module.directive("rtCheckHealth", function($compile, datasourceSrv, timeSrv) {
+  coreModule.default.directive("rtCheckHealth", function($compile, datasourceSrv, timeSrv) {
     return {
       templateUrl: 'plugins/raintank/directives/partials/checkHealth.html',
       scope: {
@@ -168,21 +168,21 @@ define([
     };
   });
 
-  module.directive("rtEndpointHealth", function() {
+  coreModule.default.directive("rtEndpointHealth", function() {
     return {
       templateUrl: 'plugins/raintank/directives/partials/endpointHealth.html',
       scope: false,
     };
   });
 
-  module.directive("rtEndpointHealthDashboard", function() {
+  coreModule.directive("rtEndpointHealthDashboard", function() {
     return {
       templateUrl: 'plugins/raintank/directives/partials/endpointHealthDashboard.html',
       scope: false,
     };
   });
-
-  module.directive('panelScroll', function() {
+  
+  coreModule.default.directive('panelScroll', function() {
     function getPanelHeight(scope) {
       if (scope.fullscreen) {
         return "80%";
@@ -200,7 +200,7 @@ define([
     };
   });
 
-  module.directive('endpointCollectorSelect', function($compile, $window, $timeout) {
+  coreModule.default.directive('endpointCollectorSelect', function($compile, $window, $timeout) {
     return {
       scope: {
         collectors: "=",

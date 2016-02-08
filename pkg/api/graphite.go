@@ -42,7 +42,7 @@ func GraphiteProxy(c *middleware.Context) {
 
 	proxy := &httputil.ReverseProxy{Director: director}
 
-	proxy.ServeHTTP(c.RW(), c.Req.Request)
+	proxy.ServeHTTP(c.Resp, c.Req.Request)
 }
 
 func executeRaintankDbQuery(query string, orgId int64) (interface{}, error) {

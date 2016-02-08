@@ -7,26 +7,15 @@ define([
 ],
 function (angular, app, _, kbn, PanelMeta) {
   'use strict';
-
-  var module = angular.module('grafana.panels.raintankEventsPanel', []);
-  app.useModule(module);
-
-  app.useModule(module);
-  module.directive('grafanaPanelRaintankeventspanel', function() {
-    return {
-      controller: 'raintankEventsPanel',
-      templateUrl: 'plugins/raintank/panels/raintankEventsPanel/module.html',
-    };
-  });
-
-  module.controller('raintankEventsPanel', function($scope, panelSrv, backendSrv, templateSrv, panelHelper) {
+  
+  function eventsPanelCtrl($scope, panelSrv, backendSrv, templateSrv, panelHelper) {
     $scope.panelMeta = new PanelMeta({
       panelName: 'Raintank Events',
       description : "Events",
       editIcon:  "fa fa-dashboard",
       fullscreen: true
     });
-    $scope.panelMeta.addEditorTab('Filter', 'plugins/raintank/panels/raintankEventsPanel/editor.html');
+    $scope.panelMeta.addEditorTab('Filter', 'public/plugins/raintankevents/editor.html');
     $scope.panelMeta.addEditorTab('Time range', 'app/features/panel/partials/panelTime.html');
 
     // Set and populate defaults
@@ -87,5 +76,16 @@ function (angular, app, _, kbn, PanelMeta) {
     };
 
     $scope.init();
-  });
+  }
+
+  function eventsPanel() {
+    return {
+      controller: eventsPanelCtrl,
+      templateUrl: 'public/plugins/raintankevents/module.html',
+    };
+  }
+
+  return {
+    panel: eventsPanel
+  };
 });

@@ -17,9 +17,8 @@ module.exports = function(grunt) {
     'ngtemplates',
     'cssmin:build',
     'ngAnnotate:build',
-    'requirejs:build',
+    'systemjs:build',
     'concat:js',
-    'clean:temp',
     'filerev',
     'remapFilerev',
     'usemin',
@@ -34,8 +33,8 @@ module.exports = function(grunt) {
 
     for(var key in summary){
       if(summary.hasOwnProperty(key)){
-        var orig = key.replace(root, root+'/[[.AppSubUrl]]');
-        var revved = summary[key].replace(root, root+'/[[.AppSubUrl]]');
+        var orig = key.replace(root, root+'/[[.AppSubUrl]]/public');
+        var revved = summary[key].replace(root, root+'/[[.AppSubUrl]]/public');
         fixed[orig] = revved;
       }
     }

@@ -3,4 +3,7 @@ define([
   './directives/all',
   './features/all',
   './filters/all'
-], function () {});
+], function () {
+	"use strict";
+	console.log("loading raintank app.");
+});

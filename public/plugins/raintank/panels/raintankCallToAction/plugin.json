@@ -1,0 +1,6 @@
+{
+  "type": "panel",
+  "name": "Raintank Call To Action",
+  "id": "raintankcalltoaction",
+  "staticRoot": "./"
+}

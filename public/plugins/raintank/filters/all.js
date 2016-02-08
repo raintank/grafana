@@ -1,9 +1,7 @@
-define(['angular', 'lodash'], function (angular, _) {
+define(['angular', 'lodash', 'app/core/core_module'], function (angular, _, coreModule) {
   'use strict';
 
-  var module = angular.module('grafana.filters');
-
-  module.filter('filterByTag', function() {
+  coreModule.default.filter('filterByTag', function() {
     return function(items, tag) {
       var filtered = [];
       if (!tag) {
@@ -18,7 +16,7 @@ define(['angular', 'lodash'], function (angular, _) {
     };
   });
 
-  module.filter('timeDuration', function() {
+  coreModule.default.filter('timeDuration', function() {
     return function(time) {
       var duration = new Date().getTime() - new Date(time).getTime();
       if (duration < 10000) {

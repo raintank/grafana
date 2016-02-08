@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/grafana/grafana/pkg/api/dtos"
 	"github.com/grafana/grafana/pkg/bus"
+	//"github.com/grafana/grafana/pkg/log"
 	"github.com/grafana/grafana/pkg/middleware"
 	m "github.com/grafana/grafana/pkg/models"
 	"github.com/grafana/grafana/pkg/plugins"
@@ -65,6 +66,7 @@ func GetDataSourceById(c *middleware.Context) Response {
 		BasicAuth:         ds.BasicAuth,
 		BasicAuthUser:     ds.BasicAuthUser,
 		BasicAuthPassword: ds.BasicAuthPassword,
+		WithCredentials:   ds.WithCredentials,
 		IsDefault:         ds.IsDefault,
 		JsonData:          ds.JsonData,
 	})
@@ -114,13 +116,19 @@ func UpdateDataSource(c *middleware.Context, cmd m.UpdateDataSourceCommand) {
 }
 
 func GetDataSourcePlugins(c *middleware.Context) {
-	dsList := make(map[string]interface{})
+	dsList := make(map[string]*plugins.DataSourcePlugin)
 
-	for key, value := range plugins.DataSources {
-		if value.(map[string]interface{})["builtIn"] == nil {
-			dsList[key] = value
+	if enabledPlugins, err := plugins.GetEnabledPlugins(c.OrgId); err != nil {
+		c.JsonApiErr(500, "Failed to get org apps", err)
+		return
+	} else {
+
+		for key, value := range enabledPlugins.DataSources {
+			if !value.BuiltIn {
+				dsList[key] = value
+			}
 		}
-	}
 
-	c.JSON(200, dsList)
+		c.JSON(200, dsList)
+	}
 }

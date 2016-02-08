@@ -75,14 +75,29 @@ define([
         expect(time.to.valueOf()).to.equal(1410337665699);
       });
 
+      it('should handle bad dates', function() {
+        ctx.$routeParams.from = '20151126T00010%3C%2Fp%3E%3Cspan%20class';
+        ctx.$routeParams.to = 'now';
+        _dashboard.time.from = 'now-6h';
+        ctx.service.init(_dashboard);
+        expect(ctx.service.time.from).to.equal('now-6h');
+        expect(ctx.service.time.to).to.equal('now');
+      });
     });
 
     describe('setTime', function() {
-      it('should return disable refresh for absolute times', function() {
+      it('should return disable refresh if refresh is disabled for any range', function() {
         _dashboard.refresh = false;
 
         ctx.service.setTime({from: '2011-01-01', to: '2015-01-01' });
         expect(_dashboard.refresh).to.be(false);
+      });
+
+      it('should restore refresh for absolute time range', function() {
+        _dashboard.refresh = '30s';
+
+        ctx.service.setTime({from: '2011-01-01', to: '2015-01-01' });
+        expect(_dashboard.refresh).to.be('30s');
       });
 
       it('should restore refresh after relative time range is set', function() {

@@ -9,12 +9,10 @@ module.exports = function(config) {
       expand: true,
       cwd: '<%= genDir %>',
       src: [
-        //'index.html',
-        'app/panels/**/*.html',
-        'app/partials/**/*.html',
         'plugins/raintank/panels/**/*.html',
         'plugins/raintank/features/**/*.html',
-        'plugins/raintank/directives/**/*.html'
+        'plugins/raintank/directives/**/*.html',
+        'app/**/*.html'
       ],
       dest: '<%= genDir %>'
     }

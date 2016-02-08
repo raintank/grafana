@@ -1,13 +1,12 @@
 define([
   'angular',
-  'lodash'
+  'lodash',
+  'app/core/core_module'
 ],
-function (angular, _) {
+function (angular, _, coreModule) {
   'use strict';
 
-  var module = angular.module('grafana.controllers');
-
-  module.controller('EndpointSummaryCtrl', function($scope, $q, $http, backendSrv, $location, $routeParams) {
+  coreModule.default.controller('EndpointSummaryCtrl', function($scope, $q, $http, backendSrv, $location, $routeParams) {
     $scope.pageReady = false;
     $scope.init = function() {
       $scope.endpoints = [];

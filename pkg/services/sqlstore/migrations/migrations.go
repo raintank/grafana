@@ -22,6 +22,9 @@ func AddMigrations(mg *Migrator) {
 	addDashboardSnapshotMigrations(mg)
 	addAlertSchedulerValueMigration(mg)
 	addQuotaMigration(mg)
+	addAppSettingsMigration(mg)
+	addSessionMigration(mg)
+	addPlaylistMigrations(mg)
 }
 
 func addMigrationLogMigrations(mg *Migrator) {
