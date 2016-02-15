@@ -4,7 +4,7 @@
       <div>
         <form style="margin-bottom:0px;">
           <li class="dropdown">
-            <a class="pointer" data-toggle="dropdown" ng-click="loadOrgs()">
+            <a class="pointer" data-toggle="dropdown" ng-click="openSearch()">
               <span>{{endpoint.name}}</span><i class="fa fa-caret-down small" style="position:relative; top:5px; left:10px;"></i>
               </a>
             <ul class="dropdown-menu" role="menu" style="left: 65px">
@@ -17,24 +17,28 @@
       </div>
     </li>
   </ul>
+  <div class="pull-right refresh">
+    <a ng-click="refresh()">
+      <span class="small">As of {{refreshTime | date:'shortTime'}}</span> <i ng-class="icon" class="icon-rt-refresh" style="font-size:20px; vertical-align:text-bottom;"></i>
+    </a>
+  </div>
 </topnav>
 
-<div style="margin: 10px; position: relative; display: block; min-width:400px; max-width: 1000px;">
-  <!-- page title -->
-  <div class="rt-page-header-area">
-    <h1 class="rt-h1">{{endpoint.name}}</h1><a ng-click="gotoDashboard(endpoint)"><i ng-class="icon" class="primary-icon-header dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus: Summary </br>dashboard for this endpoint'"></i></a>
-  </div>
-  <div class="editor-row rt-detail-pages">
-    <div class="editor-option">
-      <bootstrap-tagsinput ng-model="endpoint.tags" tagclass="label rt-label-tag" placeholder="New Tag" on-tags-updated="tagsUpdated()" ></bootstrap-tagsinput>
+<div style="margin-left: 85px;">
+
+  <div style="margin: 10px; position: relative; display: block; max-width: 1000px; min-width:400px;">
+
+    <!-- page title -->
+    <div class="rt-page-header-area" style="margin-bottom: 50px;">
+      <h1 class="rt-h1">{{endpoint.name}}</h1><a ng-click="gotoDashboard(endpoint)"><i ng-class="icon" class="primary-icon-header dashboard-icon icon-rt-jump-to-dashboard" bs-tooltip="'Go to Litmus: Summary </br>dashboard for this endpoint'"></i></a>
+    </div>
+
+    <!-- tabs -->
+    <div class="rt-tabs">
+      <span class="nonactive"><a href="endpoints/summary/{{endpoint.id}}">Device Details</a></span>  <span class="active"><a href="endpoints/edit/{{endpoint.id}}">Configuration</a></span>
+      <span style="margin-left: 15px;" class="nonactive"><a href="endpoints/edit/{{endpoint.id}}">Installation</a></span>
     </div>
   </div>
-
-  <!-- tabs -->
-  <div class="rt-tabs" ng-if="endpoint.id">
-    <span class="nonactive"><a href="endpoints/summary/{{endpoint.id}}">Status</a></span>  <span class="active"><a href="endpoints/edit/{{endpoint.id}}">Configuration</a></span>
-  </div>
-</div>
 
   <div style="margin: 0px; position: relative; display: block; min-width:400px; max-width: 1020px;">
     <form name="endpointForm">
