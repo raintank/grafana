@@ -43,27 +43,58 @@
   <div style="margin: 0px; position: relative; display: block; min-width:400px; max-width: 1020px;">
     <form name="endpointForm">
         <div class="rt-page-section" style="padding-left: 10px; margin-top: 35px;">
-          <div class="rt-mini-form new-endpoint-domain-form">
-            <div class="rt-mini-form-col">
-              <label class="rt-form-label-medium">Endpoint Name</label>
-              <input type="text" class="rt-form-input" ng-model="newEndpointName" required="">
-            </div>
-            <div class="rt-mini-form-col" style="margin-top: 15px;">
+
+        <div class="rt-page-body" style="padding-left: 0px;">
+            <form name="endpointForm">
+                  <div class="rt-form-row" style="margin: 0; max-width: 500px;">
+                    <div class="rt-input-styles rt-flex-form-block">
+                        <div class="rt-flex-form-field">
+                          <label class="small">Device Name</label>
+                           <input class="rt-input-long-text" type="text" readonly ng-model="newEndpointName">
+                        </div>  
+                        <div class="rt-flex-form-field">
+                          <label class="small">Device Description</label>
+                           <input class="rt-input-long-text" type="text">
+                        </div>                                                  
+                        <div class="rt-flex-form-field">
+                          <label class="small">Flow Type</label>
+                          <input type="text" class="rt-input-med-text"> 
+                        </div>
+                        <div class="rt-flex-form-field">
+                          <label class="small">Device SNMP IP Address</label>
+                           <input class="rt-input-med-text" type="text">
+                        </div>                        
+                        <div class="rt-flex-form-field">
+                            <label class="small">Sample Rate</label>
+                           <input class="rt-input-med-text" type="text">
+                        </div>  
+                        <div class="rt-flex-form-field">
+                          <label class="small">SNMP Community <i class="grafana-tip fa fa-question-circle ng-scope" bs-tooltip="'An SNMP Community is a group of SNMPs living in harmony, together.'" data-original-title="" title=""></i></label>
+                           <input class="rt-input-med-text" type="text">
+                        </div>  
+                        <div class="rt-flex-form-field">
+                          <label class="small">Device IP Addresses</label>
+                           <input class="rt-input-med-text" type="text">
+                        </div>                        
+                        <div class="rt-flex-form-field">
+                            <label class="small">SNMP Polling</label>
+                            <input id="rt-radio-collector-kentik-1" class="rt-radio-custom"  type="radio" checked="checked">
+                            <label for="rt-radio-collector-1" class="rt-radio-body-label">Standard</label>
+                            <input id="rt-radio-collector-kentik-2" class="rt-radio-custom"  type="radio">
+                            <label for="rt-radio-collector-kentik-2" class="rt-radio-body-label">Minimum</label>                            
+                        </div>
+                    </div>
+
+          <div class="rt-mini-form-col" style="margin-top: 15px; padding-top: 25px;">
               <div>
                 <div class="editor-row" ng-show="endpoint.id">
-                  <button type="submit" class="secondaryCTA ButtonTall" style="position:relative; top:-1px;" ng-click="updateEndpoint(endpoint)">Update Endpoint Name</button>
+                  <button type="submit" class="secondaryCTA ButtonTall" style="position:relative; top:-1px;" ng-click="updateEndpoint(endpoint)">Update Device</button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div ng-include src="'plugins/raintank/features/partials/pingForm.html'" ng-if="monitors['ping']"></div>
-        <div ng-include src="'plugins/raintank/features/partials/dnsForm.html'" ng-if="monitors['dns']"></div>
-        <div ng-include src="'plugins/raintank/features/partials/httpForm.html'" ng-if="monitors['http']"></div>
-        <div ng-include src="'plugins/raintank/features/partials/httpsForm.html'" ng-if="monitors['https']"></div>
       </form>
-        <div ng-include src="'plugins/raintank/features/partials/destroyForm.html'"></div>        
     </div>
 </div>
 <div style="padding-bottom: 100px;"></div>
